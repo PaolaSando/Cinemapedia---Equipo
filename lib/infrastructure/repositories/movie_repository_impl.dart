@@ -1,6 +1,7 @@
 import 'package:flutter_e04_cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/cast.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/movies.dart';
+import 'package:flutter_e04_cinemapedia/domain/entities/video.dart';
 import 'package:flutter_e04_cinemapedia/domain/repositories/movies_repository.dart';
 
 class MovieRepositoryImpl extends MoviesRepository {
@@ -36,5 +37,10 @@ class MovieRepositoryImpl extends MoviesRepository {
   @override
 Future<List<Cast>> getMovieCast(String movieId) {
   return datasource.getMovieCast(movieId);
+}
+
+@override
+Future<List<Video>> getMovieVideos(String movieId) {
+  return datasource.getMovieVideos(movieId);
 }
 }

@@ -3,10 +3,12 @@ import 'package:flutter_e04_cinemapedia/config/constants/environment.dart';
 import 'package:flutter_e04_cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/cast.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/movies.dart';
+import 'package:flutter_e04_cinemapedia/domain/entities/video.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/mappers/movie_mapper.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/movie_details.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/moviedb_credits_response.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/moviedb_response.dart';
+import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/moviedb_videos_response.dart';
 
 class MoviedbDatasource extends MoviesDatasource {
   final dio = Dio(
@@ -94,5 +96,22 @@ Future<List<Cast>> getMovieCast(String movieId) async {
       .toList();
   
   return mainCast;
+}
+@override
+Future<List<Video>> getMovieVideos(String movieId) async {
+  final response = await dio.get('/movie/$movieId/videos');
+  
+  if (response.statusCode != 200) {
+    throw Exception('Error loading videos for movie: $movieId');
+  }
+  
+  final videosResponse = MovieDbVideosResponse.fromJson(response.data);
+  
+  // Filtrar solo trailers de YouTube
+  final trailers = videosResponse.results
+      .where((video) => video.site == 'YouTube' && video.type == 'Trailer')
+      .toList();
+  
+  return trailers;
 }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_e04_cinemapedia/domain/entities/cast.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/movies.dart';
+import 'package:flutter_e04_cinemapedia/domain/entities/video.dart';
 
 abstract class MoviesRepository {
   Future<List<Movie>> getNowPlaying({int page = 1});
@@ -13,4 +14,6 @@ abstract class MoviesRepository {
   Future<Movie> getMovieById(String id);
 
   Future<List<Cast>> getMovieCast(String movieId);
+
+  Future<List<Video>> getMovieVideos(String movieId);
 }
