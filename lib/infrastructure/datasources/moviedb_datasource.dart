@@ -5,6 +5,7 @@ import 'package:flutter_e04_cinemapedia/domain/entities/cast.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/movies.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/video.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/mappers/movie_mapper.dart';
+import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/genres_response.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/movie_details.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/moviedb_credits_response.dart';
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/moviedb_response.dart';
@@ -114,4 +115,22 @@ Future<List<Video>> getMovieVideos(String movieId) async {
   
   return trailers;
 }
+@override
+  Future<List<Movie>> getMoviesByGenre(int genreId, {int page = 1}) async {
+    final response = await dio.get(
+      '/discover/movie',
+      queryParameters: {
+        'page': page,
+        'with_genres': genreId,
+      },
+    );
+    return _jsonToMovies(response.data);
+  }
+
+  @override
+  Future<List<GenreModel>> getGenres() async {
+    final response = await dio.get('/genre/movie/list');
+    final genresResponse = GenresResponse.fromJson(response.data);
+    return genresResponse.genres;
+  }
 }

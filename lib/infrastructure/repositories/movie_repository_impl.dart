@@ -3,6 +3,7 @@ import 'package:flutter_e04_cinemapedia/domain/entities/cast.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/movies.dart';
 import 'package:flutter_e04_cinemapedia/domain/entities/video.dart';
 import 'package:flutter_e04_cinemapedia/domain/repositories/movies_repository.dart';
+import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/genres_response.dart';
 
 class MovieRepositoryImpl extends MoviesRepository {
   final MoviesDatasource datasource;
@@ -43,4 +44,13 @@ Future<List<Cast>> getMovieCast(String movieId) {
 Future<List<Video>> getMovieVideos(String movieId) {
   return datasource.getMovieVideos(movieId);
 }
+  @override
+  Future<List<Movie>> getMoviesByGenre(int genreId, {int page = 1}) {
+    return datasource.getMoviesByGenre(genreId, page: page);
+  }
+
+  @override
+  Future<List<GenreModel>> getGenres() {
+    return datasource.getGenres();
+  }
 }

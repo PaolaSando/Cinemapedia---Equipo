@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _HomeView(),
-      bottomNavigationBar: CustomBottomnavigationbar(),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
@@ -38,7 +38,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
     final initialLoading = ref.watch(initialLoadingProvider);
-    
+
     if (initialLoading) {
       return FullScreenLoader();
     }
