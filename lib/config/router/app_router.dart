@@ -1,4 +1,5 @@
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/genres_response.dart';
+import 'package:flutter_e04_cinemapedia/presentation/screens/movies/favorites_screen.dart';
 import 'package:flutter_e04_cinemapedia/presentation/screens/screens.dart';
 import 'package:flutter_e04_cinemapedia/presentation/widgets/auth/auth_wrapper.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +21,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/signup',
-      name: SignupScreen.name, 
+      name: SignupScreen.name,
       builder: (context, state) => const SignupScreen(),
     ),
     GoRoute(
@@ -54,6 +55,10 @@ final appRouter = GoRouter(
       path: '/search',
       name: SearchScreen.name,
       builder: (context, state) => const SearchScreen(),
+    ),
+    GoRoute(
+      path: '/favorites',
+      builder: (context, state) => const FavoritesScreen(),
     ),
   ],
 );

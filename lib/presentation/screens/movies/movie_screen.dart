@@ -5,6 +5,7 @@ import 'package:flutter_e04_cinemapedia/domain/entities/video.dart';
 import 'package:flutter_e04_cinemapedia/presentation/provider/movies/movie_info_provider.dart';
 import 'package:flutter_e04_cinemapedia/presentation/provider/movies/movie_cast_provider.dart';
 import 'package:flutter_e04_cinemapedia/presentation/provider/movies/movie_videos_provider.dart';
+import 'package:flutter_e04_cinemapedia/presentation/widgets/shared/favorite_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,14 +33,11 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   Widget build(BuildContext context) {
     final Movie? movie = ref.watch(movieInfoProvider)[widget.movieId];
     final List<Cast> cast = ref.watch(movieCastProvider)[widget.movieId] ?? [];
-    final List<Video> videos = ref.watch(movieVideosProvider)[widget.movieId] ?? [];
+    final List<Video> videos =
+        ref.watch(movieVideosProvider)[widget.movieId] ?? [];
 
     if (movie == null) {
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -49,11 +47,8 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
           _CustomSliverAppBar(movie: movie),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => _MovieDetail(
-                movie: movie,
-                cast: cast,
-                videos: videos,
-              ),
+              (context, index) =>
+                  _MovieDetail(movie: movie, cast: cast, videos: videos),
               childCount: 1,
             ),
           ),
@@ -116,9 +111,11 @@ class _MovieDetail extends StatelessWidget {
                         color: colorScheme.surfaceVariant,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(Icons.movie_rounded, 
-                          size: 40, 
-                          color: colorScheme.onSurfaceVariant),
+                      child: Icon(
+                        Icons.movie_rounded,
+                        size: 40,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
                     );
                   },
                 ),
@@ -142,16 +139,21 @@ class _MovieDetail extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.amber,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Row(
                             children: [
-                              Icon(Icons.star_rounded, 
-                                  color: Colors.white, 
-                                  size: 16),
+                              Icon(
+                                Icons.star_rounded,
+                                color: Colors.white,
+                                size: 16,
+                              ),
                               SizedBox(width: 4),
                               Text(
                                 '${movie.voteAverage.toStringAsFixed(1)}',
@@ -166,16 +168,21 @@ class _MovieDetail extends StatelessWidget {
                         ),
                         SizedBox(width: 12),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             color: colorScheme.primary.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Row(
                             children: [
-                              Icon(Icons.calendar_today_rounded, 
-                                  size: 14, 
-                                  color: colorScheme.primary),
+                              Icon(
+                                Icons.calendar_today_rounded,
+                                size: 14,
+                                color: colorScheme.primary,
+                              ),
                               SizedBox(width: 4),
                               Text(
                                 '${movie.releaseDate.year}',
@@ -225,9 +232,11 @@ class _MovieDetail extends StatelessWidget {
                         color: colorScheme.primary.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Icon(Icons.category_rounded, 
-                          color: colorScheme.primary, 
-                          size: 20),
+                      child: Icon(
+                        Icons.category_rounded,
+                        color: colorScheme.primary,
+                        size: 20,
+                      ),
                     ),
                     SizedBox(width: 8),
                     Text(
@@ -243,19 +252,29 @@ class _MovieDetail extends StatelessWidget {
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
-                  children: movie.genreIds.map((genre) => Chip(
-                    label: Text(
-                      genre,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    backgroundColor: colorScheme.primary.withOpacity(0.1),
-                    shape: StadiumBorder(),
-                    side: BorderSide.none,
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  )).toList(),
+                  children:
+                      movie.genreIds
+                          .map(
+                            (genre) => Chip(
+                              label: Text(
+                                genre,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              backgroundColor: colorScheme.primary.withOpacity(
+                                0.1,
+                              ),
+                              shape: StadiumBorder(),
+                              side: BorderSide.none,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
+                              ),
+                            ),
+                          )
+                          .toList(),
                 ),
               ],
             ),
@@ -270,7 +289,7 @@ class _MovieDetail extends StatelessWidget {
 
         // SECCIÓN: REPARTO
         if (cast.isNotEmpty) _CastSection(cast: cast),
-        
+
         SizedBox(height: 30),
       ],
     );
@@ -299,23 +318,28 @@ class _TrailerSection extends StatelessWidget {
                   color: colorScheme.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.videocam_rounded, 
-                    color: colorScheme.primary, 
-                    size: 20),
+                child: Icon(
+                  Icons.videocam_rounded,
+                  color: colorScheme.primary,
+                  size: 20,
+                ),
               ),
               SizedBox(width: 8),
               Text(
                 'Tráiler',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
               ),
             ],
           ),
           SizedBox(height: 16),
           // Mismo componente siempre, con estado interno
-          _TrailerCard(hasTrailer: videos.isNotEmpty, video: videos.isNotEmpty ? videos.first : null),
+          _TrailerCard(
+            hasTrailer: videos.isNotEmpty,
+            video: videos.isNotEmpty ? videos.first : null,
+          ),
         ],
       ),
     );
@@ -330,7 +354,6 @@ class _TrailerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -366,16 +389,14 @@ class _TrailerCard extends StatelessWidget {
               return Container(
                 height: 200,
                 color: Colors.grey[300],
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+                child: Center(child: CircularProgressIndicator()),
               );
             },
             errorBuilder: (context, error, stackTrace) {
               return _buildPlaceholderContent();
             },
           ),
-          
+
           // Overlay
           Container(
             height: 200,
@@ -384,14 +405,11 @@ class _TrailerCard extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Colors.transparent,
-                  Colors.black.withOpacity(0.6),
-                ],
+                colors: [Colors.transparent, Colors.black.withOpacity(0.6)],
               ),
             ),
           ),
-          
+
           // Botón de play
           Container(
             padding: EdgeInsets.all(16),
@@ -470,10 +488,7 @@ class _TrailerCard extends StatelessWidget {
           Text(
             'Esta película no tiene tráiler\ndisponible en este momento',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.grey[600], fontSize: 14),
           ),
         ],
       ),
@@ -491,10 +506,7 @@ class _TrailerCard extends StatelessWidget {
           SizedBox(height: 12),
           Text(
             'Imagen no disponible',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 16,
-            ),
+            style: TextStyle(color: Colors.grey[600], fontSize: 16),
           ),
         ],
       ),
@@ -533,17 +545,19 @@ class _CastSection extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.people_rounded, 
-                    color: Theme.of(context).colorScheme.primary, 
-                    size: 20),
+                child: Icon(
+                  Icons.people_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 20,
+                ),
               ),
               SizedBox(width: 8),
               Text(
                 'Reparto Principal',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
               ),
             ],
           ),
@@ -592,28 +606,26 @@ class _AdaptiveCastList extends StatelessWidget {
       final nameHeight = textPainter.height;
 
       final characterPainter = TextPainter(
-        text: TextSpan(
-          text: actor.character,
-          style: TextStyle(fontSize: 12),
-        ),
+        text: TextSpan(text: actor.character, style: TextStyle(fontSize: 12)),
         maxLines: 3,
         textDirection: TextDirection.ltr,
       );
       characterPainter.layout(maxWidth: 120);
       final characterHeight = characterPainter.height;
 
-      final totalHeight = 140 + // altura de la imagen
-                          12 + // espacio entre imagen y texto
-                          nameHeight + 
-                          4 + // espacio entre nombre y personaje
-                          characterHeight +
-                          12; // padding inferior
+      final totalHeight =
+          140 + // altura de la imagen
+          12 + // espacio entre imagen y texto
+          nameHeight +
+          4 + // espacio entre nombre y personaje
+          characterHeight +
+          12; // padding inferior
 
       if (totalHeight > maxHeight) {
         maxHeight = totalHeight;
       }
     }
-    
+
     // Altura mínima por si acaso
     return maxHeight.clamp(180, 250);
   }
@@ -648,25 +660,26 @@ class _AdaptiveCastCard extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: actor.profilePath != null
-                  ? Image.network(
-                      'https://image.tmdb.org/t/p/w300${actor.profilePath}',
-                      height: 140,
-                      width: 100,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return _buildPlaceholderActor();
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return _buildPlaceholderActor();
-                      },
-                    )
-                  : _buildPlaceholderActor(),
+              child:
+                  actor.profilePath != null
+                      ? Image.network(
+                        'https://image.tmdb.org/t/p/w300${actor.profilePath}',
+                        height: 140,
+                        width: 100,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return _buildPlaceholderActor();
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return _buildPlaceholderActor();
+                        },
+                      )
+                      : _buildPlaceholderActor(),
             ),
           ),
           SizedBox(height: 12),
-          
+
           // Información del actor - COMPLETAMENTE ADAPTATIVA
           Flexible(
             child: Column(
@@ -720,10 +733,7 @@ class _AdaptiveCastCard extends StatelessWidget {
           SizedBox(height: 8),
           Text(
             'Sin foto',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
           ),
         ],
       ),
@@ -756,20 +766,12 @@ class _CustomSliverAppBar extends ConsumerWidget {
         ),
         background: Stack(
           children: [
+            // Fondo
             SizedBox.expand(
-              child: Image.network(
-                movie.posterPath,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[800],
-                    child: Icon(Icons.movie_rounded, 
-                        size: 60, 
-                        color: Colors.grey[500]),
-                  );
-                },
-              ),
+              child: Image.network(movie.posterPath, fit: BoxFit.cover),
             ),
+
+            // Degradado
             SizedBox.expand(
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -777,10 +779,16 @@ class _CustomSliverAppBar extends ConsumerWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.transparent, Colors.black87],
-                    stops: [0.5, 1.0],
                   ),
                 ),
               ),
+            ),
+
+            // ⭐ BOTÓN DE FAVORITOS
+            Positioned(
+              top: 40,
+              right: 20,
+              child: FavoriteButton(movieId: movie.id.toString()),
             ),
           ],
         ),

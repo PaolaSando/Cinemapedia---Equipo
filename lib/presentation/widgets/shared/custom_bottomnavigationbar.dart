@@ -9,10 +9,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return BottomNavigationBar(
       elevation: 0,
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_max),
-          label: 'Inicio',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Inicio'),
         BottomNavigationBarItem(
           icon: Icon(Icons.label_outline),
           label: 'Categorías',
@@ -31,7 +28,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
             context.go('/categories');
             break;
           case 2:
-            // Agregar pantalla de favoritos si la tienes
+            context.push('/favorites');
             break;
         }
       },
