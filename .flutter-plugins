@@ -1,6 +1,12 @@
 # This is a generated file; do not edit or check into version control.
+firebase_auth=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth-6.1.2\\
+firebase_auth_web=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth_web-6.1.0\\
 firebase_core=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_core-4.2.1\\
 firebase_core_web=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_core_web-3.3.0\\
+google_sign_in=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in-7.2.0\\
+google_sign_in_android=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_android-7.2.1\\
+google_sign_in_ios=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_ios-6.2.1\\
+google_sign_in_web=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_web-1.1.0\\
 url_launcher=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher-6.3.2\\
 url_launcher_android=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_android-6.3.20\\
 url_launcher_ios=C:\\Users\\paola\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_ios-6.3.4\\
