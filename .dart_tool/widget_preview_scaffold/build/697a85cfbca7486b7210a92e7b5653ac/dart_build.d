@@ -1,0 +1,1 @@
+ C:\\Users\\anist\\Documents\\Ang_TecTrabajos\\9no\ Semestre\\Moviles\ III\\ProyectoFinal\\Cinemapedia---Equipo\\.dart_tool\\widget_preview_scaffold\\build\\697a85cfbca7486b7210a92e7b5653ac\\dart_build_result.json: 
