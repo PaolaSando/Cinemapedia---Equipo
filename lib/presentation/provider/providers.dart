@@ -5,3 +5,5 @@ export 'movies/initial_loading_provider.dart';
 export 'movies/genres_provider.dart';
 export 'movies/movie_videos_provider.dart';
 export 'movies/search_provider.dart';
+
+export 'auth/auth_providers.dart';

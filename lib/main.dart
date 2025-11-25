@@ -12,12 +12,12 @@ Future<void> main() async {
   // 1. Cargar variables de entorno
   await dotenv.load(fileName: ".env");
 
-  // 2. Inicializar Firebase
+  // 2. Inicializar Firebase (IMPORTANTE para que funcione Auth)
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // 3. Ejecutar la app (una sola vez)
+  // 3. Ejecutar la app
   runApp(
     const ProviderScope(
       child: MainApp(),

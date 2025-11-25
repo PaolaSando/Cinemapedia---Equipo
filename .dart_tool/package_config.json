@@ -188,6 +188,12 @@
       "languageVersion": "3.7"
     },
     {
+      "name": "fluttertoast",
+      "rootUri": "file:///C:/Users/paola/AppData/Local/Pub/Cache/hosted/pub.dev/fluttertoast-9.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "frontend_server_client",
       "rootUri": "file:///C:/Users/paola/AppData/Local/Pub/Cache/hosted/pub.dev/frontend_server_client-4.0.0",
       "packageUri": "lib/",
@@ -578,7 +584,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-11-25T06:57:40.227870Z",
+  "generated": "2025-11-25T18:23:01.931854Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///C:/dev/flutter",
