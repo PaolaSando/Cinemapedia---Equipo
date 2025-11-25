@@ -1,4 +1,5 @@
 import 'package:flutter_e04_cinemapedia/infrastructure/models/moviedb/genres_response.dart';
+import 'package:flutter_e04_cinemapedia/presentation/screens/movies/search_screen.dart';
 import 'package:flutter_e04_cinemapedia/presentation/screens/movies/categories_screen.dart';
 import 'package:flutter_e04_cinemapedia/presentation/screens/movies/genre_movies_screen.dart';
 import 'package:flutter_e04_cinemapedia/presentation/screens/screens.dart';
@@ -32,6 +33,11 @@ final appRouter = GoRouter(
         final genre = state.extra as GenreModel;
         return GenreMoviesScreen(genre: genre);
       },
+    ),
+    GoRoute(
+      path: '/search',
+      name: SearchScreen.name,
+      builder: (context, state) => SearchScreen(),
     ),
   ],
 );

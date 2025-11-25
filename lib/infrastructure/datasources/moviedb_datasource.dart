@@ -24,11 +24,10 @@ class MoviedbDatasource extends MoviesDatasource {
 
   List<Movie> _jsonToMovies(Map<String, dynamic> json) {
     final movieDBResponse = MovieDbResponse.fromJson(json);
-    final List<Movie> movies =
-        movieDBResponse.results
-            .where((moviedb) => moviedb.posterPath != 'no-poster')
-            .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
-            .toList();
+    final List<Movie> movies = movieDBResponse.results
+        .where((moviedb) => moviedb.posterPath != 'no-poster')
+        .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
+        .toList();
     return movies;
   }
 
@@ -49,31 +48,32 @@ class MoviedbDatasource extends MoviesDatasource {
     );
     return _jsonToMovies(response.data);
   }
-  
+
   @override
-  Future<List<Movie>> getTopRated({int page = 1}) async{
+  Future<List<Movie>> getTopRated({int page = 1}) async {
     final response = await dio.get(
       '/movie/top_rated',
       queryParameters: {'page': page},
     );
     return _jsonToMovies(response.data);
   }
-  
+
   @override
-  Future<List<Movie>> getUpcoming({int page = 1}) async{
+  Future<List<Movie>> getUpcoming({int page = 1}) async {
     final response = await dio.get(
       '/movie/upcoming',
       queryParameters: {'page': page},
     );
     return _jsonToMovies(response.data);
   }
-  
+
   @override
-  Future<Movie> getMovieById(String id) async{
+  Future<Movie> getMovieById(String id) async {
     final response = await dio.get('/movie/$id');
-    if(response.statusCode != 200) 
+    if (response.statusCode != 200) {
       throw Exception('Movie with id: $id not found');
-    
+    }
+
     final movieDetails = MovieDetails.fromJson(response.data);
 
     final movie = MovieMapper.movieDetailsToEntity(movieDetails);
@@ -82,40 +82,42 @@ class MoviedbDatasource extends MoviesDatasource {
   }
 
   @override
-Future<List<Cast>> getMovieCast(String movieId) async {
-  final response = await dio.get('/movie/$movieId/credits');
-  
-  if (response.statusCode != 200) {
-    throw Exception('Error loading cast for movie: $movieId');
+  Future<List<Cast>> getMovieCast(String movieId) async {
+    final response = await dio.get('/movie/$movieId/credits');
+
+    if (response.statusCode != 200) {
+      throw Exception('Error loading cast for movie: $movieId');
+    }
+
+    final creditsResponse = MovieDbCreditsResponse.fromJson(response.data);
+
+    // Filtrar solo los actores principales
+    final mainCast = creditsResponse.cast
+        .where((actor) => actor.order <= 10) // Primeros 10 actores
+        .toList();
+
+    return mainCast;
   }
-  
-  final creditsResponse = MovieDbCreditsResponse.fromJson(response.data);
-  
-  // Filtrar solo los actores principales
-  final mainCast = creditsResponse.cast
-      .where((actor) => actor.order <= 10) // Primeros 10 actores
-      .toList();
-  
-  return mainCast;
-}
-@override
-Future<List<Video>> getMovieVideos(String movieId) async {
-  final response = await dio.get('/movie/$movieId/videos');
-  
-  if (response.statusCode != 200) {
-    throw Exception('Error loading videos for movie: $movieId');
+
+  @override
+  Future<List<Video>> getMovieVideos(String movieId) async {
+    final response = await dio.get('/movie/$movieId/videos');
+
+    if (response.statusCode != 200) {
+      throw Exception('Error loading videos for movie: $movieId');
+    }
+
+    final videosResponse = MovieDbVideosResponse.fromJson(response.data);
+
+    // Filtrar solo trailers de YouTube
+    final trailers = videosResponse.results
+        .where((video) => video.site == 'YouTube' && video.type == 'Trailer')
+        .toList();
+
+    return trailers;
   }
-  
-  final videosResponse = MovieDbVideosResponse.fromJson(response.data);
-  
-  // Filtrar solo trailers de YouTube
-  final trailers = videosResponse.results
-      .where((video) => video.site == 'YouTube' && video.type == 'Trailer')
-      .toList();
-  
-  return trailers;
-}
-@override
+
+  @override
   Future<List<Movie>> getMoviesByGenre(int genreId, {int page = 1}) async {
     final response = await dio.get(
       '/discover/movie',
@@ -132,5 +134,53 @@ Future<List<Video>> getMovieVideos(String movieId) async {
     final response = await dio.get('/genre/movie/list');
     final genresResponse = GenresResponse.fromJson(response.data);
     return genresResponse.genres;
+  }
+
+  @override
+  Future<List<Movie>> searchMovies(String query) async {
+    final response = await dio.get(
+      '/search/movie',
+      queryParameters: {
+        'query': query,
+        'page': 1,
+      },
+    );
+    return _jsonToMovies(response.data);
+  }
+
+  @override
+  Future<List<Movie>> searchMoviesByActor(String actorName) async {
+    // Primero buscar el actor
+    final actorResponse = await dio.get(
+      '/search/person',
+      queryParameters: {
+        'query': actorName,
+        'page': 1,
+      },
+    );
+
+    if (actorResponse.data['results'].isEmpty) {
+      return [];
+    }
+
+    final actorId = actorResponse.data['results'][0]['id'];
+
+    // Luego buscar películas del actor
+    final moviesResponse = await dio.get(
+      '/person/$actorId/movie_credits',
+    );
+    final movieDbResponse = MovieDbResponse.fromJson({
+      'results': moviesResponse.data['cast'],
+      'page': 1,
+      'total_pages': 1,
+      'total_results': moviesResponse.data['cast'].length,
+    });
+
+    final List<Movie> movies = movieDbResponse.results
+        .where((moviedb) => moviedb.posterPath != 'no-poster')
+        .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
+        .toList();
+
+    return movies;
   }
 }

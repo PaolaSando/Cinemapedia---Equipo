@@ -21,4 +21,8 @@ abstract class MoviesRepository {
   Future<List<Movie>> getMoviesByGenre(int genreId, {int page = 1});
   
   Future<List<GenreModel>> getGenres();
+
+  Future<List<Movie>> searchMovies(String query);
+  
+  Future<List<Movie>> searchMoviesByActor(String actorName);
 }

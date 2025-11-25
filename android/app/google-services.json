@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "157160164828",
+    "project_id": "cinemapedia-cc4f4",
+    "storage_bucket": "cinemapedia-cc4f4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157160164828:android:98a8797dc5b87eb7d69319",
+        "android_client_info": {
+          "package_name": "com.example.flutter_e04_cinemapedia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1A_Oe1Ith2UOycJgcpD92G_cAR09duWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

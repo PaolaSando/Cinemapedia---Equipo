@@ -10,6 +10,7 @@ dependencies:
   animate_do: ^4.2.0
   card_swiper: ^3.0.1
   dio: ^5.9.0
+  firebase_core: ^4.2.1
   flutter:
     sdk: flutter
   flutter_dotenv: ^6.0.0

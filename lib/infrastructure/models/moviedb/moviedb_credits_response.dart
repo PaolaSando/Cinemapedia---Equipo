@@ -11,7 +11,8 @@ class MovieDbCreditsResponse {
     required this.crew,
   });
 
-  factory MovieDbCreditsResponse.fromJson(Map<String, dynamic> json) => MovieDbCreditsResponse(
+  factory MovieDbCreditsResponse.fromJson(Map<String, dynamic> json) =>
+      MovieDbCreditsResponse(
         id: json["id"],
         cast: List<Cast>.from(json["cast"].map((x) => Cast.fromJson(x))),
         crew: List<dynamic>.from(json["crew"].map((x) => x)),

@@ -9,9 +9,11 @@ class MovieDbVideosResponse {
     required this.results,
   });
 
-  factory MovieDbVideosResponse.fromJson(Map<String, dynamic> json) => MovieDbVideosResponse(
+  factory MovieDbVideosResponse.fromJson(Map<String, dynamic> json) =>
+      MovieDbVideosResponse(
         id: json["id"],
-        results: List<Video>.from(json["results"].map((x) => Video.fromJson(x))),
+        results:
+            List<Video>.from(json["results"].map((x) => Video.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

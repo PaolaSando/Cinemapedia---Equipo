@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
@@ -15,10 +16,15 @@ class CustomAppbar extends StatelessWidget {
           width: double.infinity,
           child: Row(
             children: [
-              Text('Cinemapedia',style: titleStyle,),
+              Text(
+                'Cinemapedia',
+                style: titleStyle,
+              ),
               Spacer(),
               IconButton(
-                onPressed: (){},
+                onPressed: () {
+                  context.push('/search');
+                },
                 icon: Icon(Icons.search_outlined),
               ),
             ],

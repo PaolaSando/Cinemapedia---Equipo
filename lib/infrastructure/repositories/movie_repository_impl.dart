@@ -9,7 +9,7 @@ class MovieRepositoryImpl extends MoviesRepository {
   final MoviesDatasource datasource;
 
   MovieRepositoryImpl(this.datasource);
-  
+
   @override
   Future<List<Movie>> getNowPlaying({int page = 1}) {
     return datasource.getNowPlaying(page: page);
@@ -19,31 +19,32 @@ class MovieRepositoryImpl extends MoviesRepository {
   Future<List<Movie>> getPopular({int page = 1}) {
     return datasource.getPopular(page: page);
   }
-  
+
   @override
   Future<List<Movie>> getTopRated({int page = 1}) {
     return datasource.getTopRated(page: page);
   }
-  
+
   @override
   Future<List<Movie>> getUpcoming({int page = 1}) {
     return datasource.getUpcoming(page: page);
   }
-  
+
   @override
   Future<Movie> getMovieById(String id) {
     return datasource.getMovieById(id);
   }
-  
-  @override
-Future<List<Cast>> getMovieCast(String movieId) {
-  return datasource.getMovieCast(movieId);
-}
 
-@override
-Future<List<Video>> getMovieVideos(String movieId) {
-  return datasource.getMovieVideos(movieId);
-}
+  @override
+  Future<List<Cast>> getMovieCast(String movieId) {
+    return datasource.getMovieCast(movieId);
+  }
+
+  @override
+  Future<List<Video>> getMovieVideos(String movieId) {
+    return datasource.getMovieVideos(movieId);
+  }
+
   @override
   Future<List<Movie>> getMoviesByGenre(int genreId, {int page = 1}) {
     return datasource.getMoviesByGenre(genreId, page: page);
@@ -52,5 +53,15 @@ Future<List<Video>> getMovieVideos(String movieId) {
   @override
   Future<List<GenreModel>> getGenres() {
     return datasource.getGenres();
+  }
+
+  @override
+  Future<List<Movie>> searchMovies(String query) {
+    return datasource.searchMovies(query);
+  }
+
+  @override
+  Future<List<Movie>> searchMoviesByActor(String actorName) {
+    return datasource.searchMoviesByActor(actorName);
   }
 }

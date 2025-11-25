@@ -629,7 +629,7 @@ class _AdaptiveCastCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      width: 120, // Ancho fijo para el carrete
+      width: 150, // Ancho fijo para el carrete
       margin: EdgeInsets.only(right: 16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
